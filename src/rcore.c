@@ -99,6 +99,7 @@
 **********************************************************************************************/
 
 #include "raylib.h"                 // Declares module functions
+#include <assert.h>
 
 // Check if config flags have been externally provided on compilation line
 #if !defined(EXTERNAL_CONFIG_FLAGS)
@@ -4794,7 +4795,13 @@ static bool InitGraphicsDevice(int width, int height)
 
     // Get an EGL device connection
 #if defined(PLATFORM_DRM)
-    CORE.Window.device = eglGetDisplay((EGLNativeDisplayType)CORE.Window.gbmDevice);
+    PFNEGLGETPLATFORMDISPLAYEXTPROC get_platform_display = NULL;
+    get_platform_display =
+        (void *) eglGetProcAddress("eglGetPlatformDisplayEXT");
+    assert(get_platform_display != NULL);
+
+    /* CORE.Window.device = eglGetDisplay((EGLNativeDisplayType)CORE.Window.gbmDevice); */
+    CORE.Window.device = get_platform_display(EGL_PLATFORM_GBM_KHR, (EGLNativeDisplayType)CORE.Window.gbmDevice, NULL);
 #else
     CORE.Window.device = eglGetDisplay(EGL_DEFAULT_DISPLAY);
 #endif
