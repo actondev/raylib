@@ -4801,7 +4801,7 @@ static bool InitGraphicsDevice(int width, int height)
     assert(get_platform_display != NULL);
 
     /* CORE.Window.device = eglGetDisplay((EGLNativeDisplayType)CORE.Window.gbmDevice); */
-    CORE.Window.device = get_platform_display(EGL_PLATFORM_GBM_KHR, (EGLNativeDisplayType)CORE.Window.gbmDevice, NULL);
+    CORE.Window.device = get_platform_display(EGL_PLATFORM_GBM_KHR, CORE.Window.gbmDevice, NULL);
 #else
     CORE.Window.device = eglGetDisplay(EGL_DEFAULT_DISPLAY);
 #endif
