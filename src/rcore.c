@@ -4811,6 +4811,7 @@ static bool InitGraphicsDevice(int width, int height)
     {
         // If all of the calls to eglInitialize returned EGL_FALSE then an error has occurred.
         TRACELOG(LOG_WARNING, "DISPLAY: Failed to initialize EGL device");
+        exit(1);
         return false;
     }
 
