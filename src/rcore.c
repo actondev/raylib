@@ -4805,11 +4805,6 @@ static bool InitGraphicsDevice(int width, int height)
 #else
     CORE.Window.device = eglGetDisplay(EGL_DEFAULT_DISPLAY);
 #endif
-    if (CORE.Window.device == EGL_NO_DISPLAY)
-    {
-        TRACELOG(LOG_WARNING, "DISPLAY: Failed to initialize EGL device");
-        return false;
-    }
 
     // Initialize the EGL device connection
     if (eglInitialize(CORE.Window.device, NULL, NULL) == EGL_FALSE)
